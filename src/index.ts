@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio'
 import path from 'node:path'
 import {promises as fs} from 'node:fs'
+import {program} from 'commander'
 
 async function getIconPagesFromListing(listingURL: string) {
     let currentURL: string | undefined = listingURL
@@ -56,4 +57,32 @@ async function test() {
     await downloadIcon(pages.iconPages[0].url, ['.512.png', '.svg'], 'icons')
 }
 
-test()
+async function main() {
+    program
+        .requiredOption('-u, --url <url>', 'The url of the icon listing')
+        .requiredOption('-f, --formats <formats...>', 'The formats to download')
+        .option('-d, --dest <dest>', 'The destination directory', 'icons')
+
+    program.parse(process.argv)
+    const options = program.opts()
+
+    const url = options.url as string
+    const formats = options.formats as string[]
+    const dest = options.dest as string
+
+    await fs.mkdir(dest, {recursive: true})
+    console.log('Loading icon pages...')
+    const data = await getIconPagesFromListing(url)
+    await fs.writeFile(path.join(dest, 'data.json'), JSON.stringify(data, null, 4))
+    console.group(`Downloading ${data.iconPages.length} icons...`)
+    let i = 0
+    for(const iconPage of data.iconPages) {
+        console.log(`(${i + 1}/${data.iconPages.length}) Downloading ${iconPage.title}...`)
+        await downloadIcon(iconPage.url, formats, dest)
+        i++
+    }
+    console.groupEnd()
+    console.log('Done!')
+}
+
+main().catch(e => {throw e})
