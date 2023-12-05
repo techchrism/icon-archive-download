@@ -1,8 +1,20 @@
 {
   "name": "icon-archive-download",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Command-line tool to download icons from iconarchive.com",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/techchrism/icon-archive-download#readme",
+  "bugs": {
+    "url": "https://github.com/techchrism/icon-archive-download/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/techchrism/icon-archive-download.git",
+    "directory": "icon-archive-download"
+  },
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch"

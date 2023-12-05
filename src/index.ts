@@ -49,14 +49,6 @@ async function downloadIcon(iconPage: string, formats: string[], destDir: string
     }
 }
 
-async function test() {
-    const pages = await getIconPagesFromListing('https://www.iconarchive.com/show/papirus-places-icons-by-papirus-team.1.html')
-    console.log(pages)
-
-    await fs.mkdir('icons', {recursive: true})
-    await downloadIcon(pages.iconPages[0].url, ['.512.png', '.svg'], 'icons')
-}
-
 async function main() {
     program
         .requiredOption('-u, --url <url>', 'The url of the icon listing')
