@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as cheerio from 'cheerio'
 import path from 'node:path'
 import {promises as fs} from 'node:fs'
@@ -51,6 +53,7 @@ async function downloadIcon(iconPage: string, formats: string[], destDir: string
 
 async function main() {
     program
+        .name('icon-archive-dl')
         .requiredOption('-u, --url <url>', 'The url of the icon listing')
         .requiredOption('-f, --formats <formats...>', 'The formats to download')
         .option('-d, --dest <dest>', 'The destination directory', 'icons')

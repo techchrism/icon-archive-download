@@ -1,8 +1,11 @@
 {
-  "name": "icon-archive-download",
-  "version": "0.1.0",
+  "name": "icon-archive-dl",
+  "version": "0.1.3",
   "description": "Command-line tool to download icons from iconarchive.com",
   "main": "dist/index.js",
+  "bin": {
+    "icon-archive-dl": "dist/index.js"
+  },
   "files": [
     "dist"
   ],
